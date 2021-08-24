@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% load crispy_forms_filters %}
+{% load crispy_forms_tags %}
+
+{% block title %}
+<title>Mass Redact</title>
+{% endblock title %}
+
+{% block content %}
+
+    <div class="container">
+        <form method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+                <fieldset class="form-group">
+                    <legend class="border-bottom mb-4">Mass Redact</legend>
+                    <h5>Выберите пользователя для замены</h5>
+
+                    {{ form.user | as_crispy_field }}
+                    <div style="margin-top: 50px">
+                        <h5>Назначьте нового пользователя</h5>
+                        {{ form.user | as_crispy_field }}
+                    </div>
+                </fieldset>
+
+                <div class="form-group" style="margin-top: 10px">
+                    <button class="btn btn-primary" type="submit">Save</button>
+
+                    <input type="button" value="Cancel" onclick="history.back()">
+                </div>
+        </form>
+    </div>
+
+{% endblock content %}

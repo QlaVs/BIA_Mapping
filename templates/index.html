@@ -1,0 +1,86 @@
+{% extends "base.html" %}
+{% block title %}
+
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.25/css/jquery.dataTables.css">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+    <script src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.js"></script>
+
+    <script>
+    $(document).ready(function () {
+        $("#data_table").DataTable({
+            stateSave: true,
+            "columnDefs": [
+                { "width": "20%", "targets": 0 }
+            ]
+        });
+    });
+    </script>
+
+    <title>Mapping</title>
+{% endblock title %}
+
+{% block content %}
+
+    <div class="float-right">
+        <a href="{% url 'logout' %}" role="button" class="btn btn-info float-right"
+           style="position: fixed; top: 10px; right: 10px">Logout</a>
+    </div>
+
+    <div class="btn-group-vertical" style="position: fixed; margin-top: 10px; margin-left: 10px">
+        <div class="btn-group-vertical">
+            <a href="{% url 'add' %}" role="button" class="btn btn-info">Добавить поле</a>
+            <a href="{% url 'add_new_city' %}" role="button" class="btn btn-primary">Добавить город</a>
+            <a href="{% url 'add_new_ac' %}" role="button" class="btn btn-primary">Добавить колонну</a>
+            <a href="{% url 'add_new_user' %}" role="button" class="btn btn-primary">Добавить исполнителя</a>
+{#            <a href="{% url 'delete_city' %}" role="button" class="btn btn-danger">Удалить город</a>#}
+{#            <a href="{% url 'delete_ac' %}" role="button" class="btn btn-danger">Удалить колонну</a>#}
+{#            <a href="{% url 'delete_user' %}" role="button" class="btn btn-danger">Удалить исполнителя</a>#}
+            <a href="{% url 'mass_redact' %}" role="button" class="btn btn-secondary">Редактировать несколько</a>
+        </div>
+    </div>
+
+    <div class="container">
+        <table id="data_table" class="display">
+            <thead>
+            <tr>
+                <th>Город</th>
+                <th>Колонна</th>
+                <th>Канал</th>
+                <th>Epic</th>
+                <th>Исполнитель</th>
+                <th>Функции</th>
+            </tr>
+            </thead>
+
+
+            <tbody>
+            {% for data in users %}
+                <tr>
+                    <td>{{ data.city }}</td>
+                    <td>{{ data.auto_column }}</td>
+                    <td>{{ data.channel }}</td>
+                    <td>{{ data.epic }}</td>
+                    <td>{{ data.user }}</td>
+                    <td>
+                        <div class="btn-group">
+                            <a class="btn btn-warning" href="{% url 'edit' data.pk %}" role="button">Edit</a>
+                            <a class="btn btn-danger" href="{% url 'delete' data.pk %}" role="button"
+                               onclick="return confirm('Удалить строку?')">Delete</a>
+                        </div>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+
+
+        </table>
+    </div>
+
+    <p align="center" style="display: flex; justify-content: center">
+        BIA Mapping&nbsp;
+        <a href="https://github.com/QlaVs/">&copy; QlaVs</a>
+    </p>
+
+{% endblock content %}

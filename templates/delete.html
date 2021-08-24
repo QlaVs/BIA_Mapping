@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% load crispy_forms_filters %}
+{% load crispy_forms_tags %}
+
+{% block title %}
+<title>Delete</title>
+{% endblock title %}
+
+{% block content %}
+
+    <div class="container">
+        <form method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+                <fieldset class="form-group">
+                    <legend class="border-bottom mb-4">Delete Instance</legend>
+                    {{ form | crispy }}
+                </fieldset>
+                <div class="form-group" style="margin-top: 10px">
+                    <button class="btn btn-warning" type="submit">Delete</button>
+
+                    <input type="button" value="Cancel" onclick="history.back()">
+                </div>
+        </form>
+    </div>
+
+{% endblock content %}
